@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="Chen Wei" id="1">
+        <createTable tableName="users">
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="createdAt" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updatedAt" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pk"/>
+            </column>
+            <column name="name" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(100)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="hashedPassword" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(30)"></column>
+            <column name="passwordUpdatedAt" type="datetime"></column>
+            <column name="lastSuccessfulLogin" type="datetime"></column>
+            <column name="lastFailedLogin" type="datetime"></column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Chen Wei" id="2">
+        <createTable tableName="roles">
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="createdAt" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updatedAt" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="roles_pk"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Chen Wei" id="7">
+        <createTable tableName="users_roles">
+            <column name="user_id" type="bigint">
+                <constraints referencedColumnNames="id" referencedTableName="users" />
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints referencedColumnNames="id" referencedTableName="roles"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

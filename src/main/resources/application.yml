@@ -1,0 +1,53 @@
+server:
+    port: 8080
+#    context-path: /kuaimi
+    compression:
+        enabled: true
+        mime-types: application/json,application/xml,text/html,text/xml,text/plain
+spring:
+    application:
+        name: KUAIMI
+    datasource:
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        filters: stat,wall,log4j2,mergeStat
+        initialSize: 2
+        maxActive: 5
+        test-on-borrow: true
+        type: com.alibaba.druid.pool.DruidDataSource
+        validation-query: SELECT 1 FROM DUAL
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3307/kuaimi?useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            format_sql: true
+
+
+logging:
+    config: classpath:config/logback-spring.xml
+    level:
+        com:
+            kuaimi: DEBUG
+        org:
+            hibernate:
+                SQL: DEBUG
+                type:
+                    descriptor:
+                        sql:
+                            BasicBinder: TRACE
+
+swagger:
+    enable: true
+
+deployment:
+    environment: DEVELOPMENT
+
+qcloud:
+    sdk-config:
+        mac:
+
